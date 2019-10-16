@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.FeatureInfo;
 import android.content.pm.PackageManager;
+import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.hardware.camera2.CameraAccessException;
 import android.net.Uri;
@@ -468,7 +470,16 @@ public class QRScanner extends CordovaPlugin implements BarcodeCallback {
                 settings.setRequestedCameraId(getCurrentCameraId());
                 mBarcodeView.setCameraSettings(settings);
 
-                FrameLayout.LayoutParams cameraPreviewParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+                Context context = cordova.getActivity().getApplicationContext();
+                Resources resources = context.getResources();
+                final float scale = resources.getDisplayMetrics().density;
+
+                int height = (int) (206 * scale); // height in dp. 206px of camera preview
+                int headerHeight = (int) (86 * scale); // header height in dp. 86px of ion-header
+
+                FrameLayout.LayoutParams cameraPreviewParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, height);
+                cameraPreviewParams.setMargins(0, headerHeight, 0, 0); // left, top, right, bottom
+
                 ((ViewGroup) webView.getView().getParent()).addView(mBarcodeView, cameraPreviewParams);
 
                 cameraPreviewing = true;
