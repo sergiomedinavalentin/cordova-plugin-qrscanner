@@ -474,8 +474,8 @@ public class QRScanner extends CordovaPlugin implements BarcodeCallback {
                 Resources resources = context.getResources();
                 final float scale = resources.getDisplayMetrics().density;
 
-                int height = (int) (206 * scale); // height in dp. 206px of camera preview
-                int headerHeight = (int) (86 * scale); // header height in dp. 86px of ion-header
+                int height = (int) (236 * scale); // height in dp. 236px of camera preview
+                int headerHeight = (int) (66 * scale); // header height in dp. 86px of ion-header
 
                 FrameLayout.LayoutParams cameraPreviewParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, height);
                 cameraPreviewParams.setMargins(0, headerHeight, 0, 0); // left, top, right, bottom
